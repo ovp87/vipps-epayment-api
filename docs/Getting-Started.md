@@ -6,9 +6,9 @@ tags: [api]
 
 ## Before you begin
 
-This document covers the quick steps for getting started with the Vipps Merchant Payments API. This document assumes you have signed up as a organisation with Vipps and have your test credentials from the [Merchant Portal](./Merchant-Portal.md).
+This document covers the quick steps for getting started with the Vipps Merchant Payments API. This document assumes you have signed up as a organisation with Vipps and have your test credentials from the [Merchant Portal](./Merchant-Portal).
 
-Once your merchant account is setup for Merchant Payments you should look at our [Configure Merchant Account]() page for available configuration options such as our [Notifications Webhooks](./How-to-setup-Notification-Webhooks.md).
+Once your merchant account is setup for Merchant Payments you should look at our [Configure Merchant Account](./Lazy) page for available configuration options such as our [Notifications Webhooks](./How-to-setup-Notification-Webhooks).
 
 ## Your first Vipps Payment
 
@@ -143,12 +143,12 @@ The user will be presented with the payment in the Vipps app where theyt can com
 
 To receive the result of the users action you may either:
 
-1. Poll the status of the payment view the [Get Payment]() and [Get Payment Event Log]() endpoints.
-2. Receive status updates over our [Notification Webhooks](./How-to-setup-Notification-Webhooks.md) service
+1. Poll the status of the payment view the [Get Payment](/api#tag/QueryPayments/operation/getPayment) and [Get Payment Event Log](/api#tag/QueryPayments/operation/getPaymentEventLog) endpoints.
+2. Receive status updates over our [Notification Webhooks](./How-to-setup-Notification-Webhooks) service
 
 ### Polling
 
-A request to the [Get Payment]() URL will yield a response in the same structure as [Create Payment]() specified above in [Step 2](#Step-2---Create-a-payment).
+A request to the [Get Payment](/api#tag/QueryPayments/operation/getPayment) URL will yield a response in the same structure as [Create Payment](/api#tag/CreatePayments/operation/createPayment) specified above in [Step 2](#Step-2---Create-a-payment).
 
 Example request:
 
@@ -206,11 +206,11 @@ In the case the payment has been completed this will yield an array of events li
 
 ### Notification Events
 
-If you are not dependent on getting the payment result immediately you may also use notification events to recieve the payment status update via our [Notification Webhooks](./How-to-setup-Notification-Webhooks.md) service. While we aim to deliver these event updates within a few seconds of the user completing the payment this service has an eventual delivery guarantee rather than imediate delivery.
+If you are not dependent on getting the payment result immediately you may also use notification events to recieve the payment status update via our [Notification Webhooks](./How-to-setup-Notification-Webhooks) service. While we aim to deliver these event updates within a few seconds of the user completing the payment this service has an eventual delivery guarantee rather than imediate delivery.
 
 > Note: this means we may deliver the same message several times to verify succesful delivery, use the `pspReference` field for duplicate delivery checking.
 
-If you use the notification service you will recieve events in the same format as those in the array list returned from the [Get Payment Events]() endpoint.
+If you use the notification service you will recieve events in the same format as those in the array list returned from the [Get Payment Events](/api#tag/QueryPayments/operation/getPaymentEventLog) endpoint.
 
 For example a succeful authentication event would look like
 
@@ -251,7 +251,7 @@ If the user had rejected or not acted upon the payment the event would look like
 ## Step 4 - Capture the payment
 
 Once the good or services are delivered or on their way to the customer it is time to capture the payment.
-This can be done through the [Capture Payment]().
+This can be done through the [Capture Payment](/api#tag/AdjustPayments/operation/capturePayment).
 This endpoint take the following properties in the body of the request
 
 | Parameter               | Type     | Required | Description                                                                                                                                 |
@@ -279,7 +279,7 @@ curl https://apitest.vipps.no/epayment/v1/payments/UNIQUE-PAYMENT-REFERENCE/capt
 }'
 ```
 
-Adjustments to a payment (capture, refund etc) as async. You will get a `202 Accepted` response with no body if the action is valid. A callback will be sent once the capture is completed. Additionally polling on [Get Payment]() can be done. Once capture is completed the `Payment` object will be updated to reflect this.
+Adjustments to a payment (capture, refund etc) as async. You will get a `202 Accepted` response with no body if the action is valid. A callback will be sent once the capture is completed. Additionally polling on [Get Payment](/api#tag/QueryPayments/operation/getPayment) can be done. Once capture is completed the `Payment` object will be updated to reflect this.
 
 In this case the `aggregate` property will be updated as such:
 
@@ -314,8 +314,8 @@ In this case the `aggregate` property will be updated as such:
 
 Now that you have completed your first payment we recommend you read further to better understand the full range of possibilities within the Vipps Merchant Payments API.
 
-- [How to setup Notification Webhooks](./How-to-setup-Notification-Webhooks.md)
-- [Payment modification, how to use cancel, capture and refund?](./Payment-Modification.md)
-- [Profile sharing, requesting the users personal information](./Profile-Sharing.md)
-- [Logistics, how can I enable express checkout?](./Logistics.md)
-- [Using Vipps Merchant Payments in a shopper present context](./Customer-Present-Payments.md)
+- [How to setup Notification Webhooks](./How-to-setup-Notification-Webhooks)
+- [Payment modification, how to use cancel, capture and refund?](./Payment-Modification)
+- [Profile sharing, requesting the users personal information](./Profile-Sharing)
+- [Logistics, how can I enable express checkout?](./Logistics)
+- [Using Vipps Merchant Payments in a shopper present context](./Customer-Present-Payments)
