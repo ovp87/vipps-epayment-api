@@ -353,7 +353,6 @@ components:
         expiresAt:
           type: string
           nullable: true
-          format: date-time
           pattern: '^((?:(\d{4}-\d{2}-\d{2})(T|t)(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z|z|([+-](?:2[0-3]|[01][0-9]):[0-5][0-9])|))$'
           example: '2022-10-31T09:41:53.144Z'
           description: >-
